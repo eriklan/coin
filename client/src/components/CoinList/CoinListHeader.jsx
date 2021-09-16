@@ -28,6 +28,11 @@ export default function CoinListHeader(props) {
     setPage(1)
   }
 
+  const onclickOrderByPriceChange24hHandler = () => {
+    setFiter({name: 'price_change_percentage_24h', asc: !filter.asc})
+    setPage(1)
+  }
+
   return (
     <>
       <Grid xs={12} className={classes.coinContainer}>
@@ -43,9 +48,11 @@ export default function CoinListHeader(props) {
            </Grid>
 
           <Grid md={1}>
+          <Button onClick={() => onclickOrderByCapHandler()}>
             <Typography variant="h6">
             RANK
             </Typography>
+          </Button>
           </Grid>
 
           <Grid md={1}>
@@ -79,10 +86,12 @@ export default function CoinListHeader(props) {
           </Grid>
 
           <Grid md={2}>
+          <Button onClick={() => onclickOrderByPriceChange24hHandler()}>
             <Typography variant="h6" 
             color="textPrimary">
-              PRICE CHANGE 24h
+              CHANGE 24h
             </Typography>
+          </Button>
           </Grid>
 
           <Grid md={2}>

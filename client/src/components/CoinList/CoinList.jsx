@@ -41,8 +41,7 @@ export default function CoinList() {
             vs_currency: "aud",
             sparkline: true,
             ids: search,
-            page: page,
-            per_page:10,
+            per_page:100,
           }
         })
         setCoins(coinInfo.data);
@@ -52,7 +51,7 @@ export default function CoinList() {
     } catch (e) {
       setError(e.response.data.error)
     }
-  }, [page, search, filter]);
+  }, [page, search]);
 
   return (
     <Container>
@@ -63,7 +62,9 @@ export default function CoinList() {
         <SearchBar setSearch={setSearch}/>
         <CoinListHeader 
         filter={filter} setFilter={setFilter} setPage={setPage}/>
-          {coins.sort(propComparator(filter.name, filter.asc))
+          {coins
+          .sort(propComparator(filter.name, filter.asc))
+          .slice((page - 1) * 10, page * 10)
           .map((coin) => {
             return <Coin key={coin.id} coin={coin} />
           })}
