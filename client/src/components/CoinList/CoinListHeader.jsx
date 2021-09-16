@@ -11,18 +11,21 @@ export default function CoinListHeader(props) {
   const classes = coinListStyle();
   const filter = props.filter
   const setFiter = props.setFilter
+  const setPage = props.setPage
 
   const onclickOrderByNameHandler = () => {
     setFiter({name: 'id', asc: !filter.asc})
+    setPage(1)
   }
 
   const onclickOrderByCapHandler = () => {
     setFiter({name: 'market_cap', asc: !filter.asc})
-
+    setPage(1)
   }
 
   const onclickOrderByPriceHandler = () => {
     setFiter({name: 'current_price', asc: !filter.asc})
+    setPage(1)
   }
 
   return (

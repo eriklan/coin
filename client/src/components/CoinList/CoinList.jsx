@@ -52,7 +52,7 @@ export default function CoinList() {
     } catch (e) {
       setError(e.response.data.error)
     }
-  }, [page, search]);
+  }, [page, search, filter]);
 
   return (
     <Container>
@@ -61,7 +61,8 @@ export default function CoinList() {
         {error && <ErrorBar error={error}/>}
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
         <SearchBar setSearch={setSearch}/>
-        <CoinListHeader filter={filter} setFilter={setFilter}/>
+        <CoinListHeader 
+        filter={filter} setFilter={setFilter} setPage={setPage}/>
           {coins.sort(propComparator(filter.name, filter.asc))
           .map((coin) => {
             return <Coin key={coin.id} coin={coin} />
