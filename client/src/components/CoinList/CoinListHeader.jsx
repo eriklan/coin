@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -9,17 +9,20 @@ import { Button } from '@material-ui/core';
 
 export default function CoinListHeader(props) {
   const classes = coinListStyle();
-  const [orderByName, setOrderByName] = useState(false);
-  const [orderByCap, setOrderByCap] = useState(false);
+  const filter = props.filter
+  const setFiter = props.setFilter
 
   const onclickOrderByNameHandler = () => {
-    setOrderByName(!orderByName);
-    (orderByName ? props.setFilter('id_asc') : props.setFilter('id_desc'));
+    setFiter({name: 'id', asc: !filter.asc})
   }
 
   const onclickOrderByCapHandler = () => {
-    setOrderByCap(!orderByCap);
-    (orderByCap ? props.setFilter('market_cap_desc') : props.setFilter('market_cap_asc'));
+    setFiter({name: 'market_cap', asc: !filter.asc})
+
+  }
+
+  const onclickOrderByPriceHandler = () => {
+    setFiter({name: 'current_price', asc: !filter.asc})
   }
 
   return (
@@ -65,9 +68,11 @@ export default function CoinListHeader(props) {
           </Grid>
 
           <Grid md={2}>
+          <Button onClick={() => onclickOrderByPriceHandler()}>
             <Typography variant="h6">
               CURRENT PRICE
             </Typography>
+          </Button>
           </Grid>
 
           <Grid md={2}>

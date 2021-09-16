@@ -1,0 +1,43 @@
+.pagination {
+  display: flex;
+}
+
+.pagination__buttonContainer {
+  flex: 1;
+  display: flex;
+  justify-content: left;
+  margin-top: 20px;
+}
+
+.pagination__button {
+  width: 50px;
+  height: 50px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  border: 2px solid #ebebf0;
+  border-radius: 4px;
+  box-shadow: 1px 2px 1px #ebebf0;
+  background-color: white;
+  font-size: large;
+}
+
+.pagination__button--select {
+  width: 50px;
+  height: 50px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  border: 2px solid #ebebf0;
+  border-radius: 4px;
+  box-shadow: 1px 2px 1px #ebebf0;
+  background-color: white;
+  font-size: large;
+  background-color: #3F52B1;
+  color: white;
+}
+
+.pagination__button:hover {
+  background-color: #3F52B1;
+  color: white;
+}

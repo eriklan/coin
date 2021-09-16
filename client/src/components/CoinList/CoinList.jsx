@@ -8,14 +8,28 @@ import Coin from './Coin';
 import axios from 'axios'
 import CoinListHeader from './CoinListHeader';
 import SearchBar from './SearchBar';
+import Pagination from '../Pagination/Pagination';
 
 export default function CoinList() {
   const classes = coinListStyle();
   const [coins, setCoins] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState(null);
+  const [filter, setFilter] = useState({filter: null, asc: true});
   const [search, setSearch] = useState(null);
+  const [page, setPage] = useState(1);
+
+  const propComparator = (propName, asc) => (a, b) =>  {
+    if(asc === true) {
+      return (
+        (a[propName] === b[propName] ? 0 : a[propName] < b[propName] ? 1 : -1)
+      )
+    } else {
+      return (
+        (a[propName] === b[propName] ? 0 : a[propName] < b[propName] ? -1 : 1)
+      )
+    }
+  }
 
   useEffect(() => {
     try {
@@ -27,7 +41,8 @@ export default function CoinList() {
             vs_currency: "aud",
             sparkline: true,
             ids: search,
-            order: filter
+            page: page,
+            per_page:10,
           }
         })
         setCoins(coinInfo.data);
@@ -37,7 +52,7 @@ export default function CoinList() {
     } catch (e) {
       setError(e.response.data.error)
     }
-  }, [filter,search]);
+  }, [page, search]);
 
   return (
     <Container>
@@ -46,11 +61,18 @@ export default function CoinList() {
         {error && <ErrorBar error={error}/>}
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
         <SearchBar setSearch={setSearch}/>
-        <CoinListHeader setFilter={setFilter}/>
-          {coins.map((coin) => {
+        <CoinListHeader filter={filter} setFilter={setFilter}/>
+          {coins.sort(propComparator(filter.name, filter.asc))
+          .map((coin) => {
             return <Coin key={coin.id} coin={coin} />
           })}
         </Grid>
+        {coins.length >= 10 && (
+          <Pagination 
+          setPage={setPage}
+          currentPage={page}
+          />
+        )}
       </div>
     </Container>
   );

@@ -71,7 +71,6 @@ const Coin = ({ coin }) => {
         <Divider disablePadding/>
       </List>
     </Grid>
-    
   );
 };
 
